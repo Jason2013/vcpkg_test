@@ -34,7 +34,7 @@ add_executable(main tutorial01.cpp)
 
 target_link_libraries(main PRIVATE
     # ${GLFW3_LIBRARIES}
-    glm
+    # glm
     glfw
     GLEW::GLEW
     opengl32.lib
