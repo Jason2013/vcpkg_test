@@ -1,11 +1,3 @@
-cmake_minimum_required(VERSION 3.0)
-
-# project(test)
-
-# find_package(glfw3 CONFIG REQUIRED)
-# find_package(glew REQUIRED)
-# find_package(glm CONFIG REQUIRED)
-
 set(TARGET_NAME tutorial02_red_triangle)
 add_executable(${TARGET_NAME} tutorial02.cpp)
 
