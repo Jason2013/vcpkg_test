@@ -1,5 +1,5 @@
-# CMakeLists.txt
 cmake_minimum_required(VERSION 3.0)
+
 project(test)
 
 function (allvars)
@@ -11,31 +11,25 @@ function (allvars)
 endfunction()
 
 find_package(glfw3 CONFIG REQUIRED)
-message(STATUS glfw3_FOUND)
-
-# allvars()
-
 find_package(glew REQUIRED)
-message(STATUS glew_FOUND)
-
-# allvars()
-
 find_package(glm CONFIG REQUIRED)
-message(STATUS glm_FOUND)
 
 # allvars()
 
-add_executable(main tutorial01.cpp)
+add_subdirectory(common)
 
-# target_include_directories(main PRIVATE
-#     ${glfw3_DIR}
-#     ${GLEW_INCLUDE_DIR}
-#     )
-
-target_link_libraries(main PRIVATE
-    # ${GLFW3_LIBRARIES}
-    # glm
-    glfw
-    GLEW::GLEW
-    opengl32.lib
+include_directories(
+    ${CMAKE_SOURCE_DIR}
     )
+
+link_libraries(common)
+
+add_subdirectory(tutorial01_first_window)
+add_subdirectory(tutorial02_red_triangle)
+# add_executable(main tutorial01.cpp)
+
+# target_link_libraries(main PRIVATE
+#     glfw
+#     GLEW::GLEW
+#     opengl32.lib
+#     )
