@@ -27,13 +27,15 @@ message(STATUS glm_FOUND)
 
 add_executable(main tutorial01.cpp)
 
-target_include_directories(main PRIVATE
-    ${glfw3_DIR}
-    ${GLEW_INCLUDE_DIR}
-    )
+# target_include_directories(main PRIVATE
+#     ${glfw3_DIR}
+#     ${GLEW_INCLUDE_DIR}
+#     )
 
 target_link_libraries(main PRIVATE
+    # ${GLFW3_LIBRARIES}
     glm
     glfw
     GLEW::GLEW
+    opengl32.lib
     )
