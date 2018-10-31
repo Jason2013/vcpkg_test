@@ -23,6 +23,10 @@ configuration:
   - Debug
   - Release
 
+skip_commits:
+  files:
+    - README.md
+
 install:
   - cmd: vcpkg install glew:x64-windows
   - cmd: vcpkg install glew:x86-windows
