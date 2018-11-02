@@ -27,6 +27,9 @@ skip_commits:
   files:
     - README.md
 
+cache:
+  - C:\Tools\vcpkg\installed\ -> appveyor.yml
+
 install:
   - cmd: vcpkg install glew:x64-windows
   - cmd: vcpkg install glew:x86-windows
