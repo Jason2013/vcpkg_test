@@ -23,13 +23,16 @@ Generator = VS_MAP[VS]
 if Platform == "x64":
     Generator += " Win64"
 
+ERROR_COMMAND = 'IF %ERRORLEVEL% NEQ 0 EXIT /B 1'
 CMAKE_COMMAND1 = 'cmake -G"{GENERATOR}" -DCMAKE_TOOLCHAIN_FILE=c:/tools/vcpkg/scripts/buildsystems/vcpkg.cmake ..'.format(GENERATOR=Generator)
 CMAKE_COMMAND2 = 'cmake --build . --config ' + Config
 
 CMAKE_COMMANDS = ["mkdir build",
     "cd build",
     CMAKE_COMMAND1,
+    ERROR_COMMAND,
     CMAKE_COMMAND2,
+    ERROR_COMMAND,
     "cd ..",
     "\n",
 ]
