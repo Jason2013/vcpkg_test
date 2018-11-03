@@ -17,7 +17,7 @@ int main()
     glfwWindowHint(GLFW_SAMPLES, 4);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-    glfwWindowHint(GLFW_COMPAT_FORWARD, GL_TRUE);
+    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     /* glfwWindowHint(GLFW_SAMPLES, 4); */
     window = glfwCreateWindow(1024,768, "Red 2", NULL, NULL);
@@ -26,7 +26,7 @@ int main()
         glfwTerminate();
         return -1;
     }
-    glfwMakeCurrentContext(window);
+    glfwMakeContextCurrent(window);
 
     glewExperimental = GL_TRUE;
     if (glewInit() != GLEW_OK)
@@ -35,15 +35,15 @@ int main()
         return -1;
     }
 
-    glfwSetInputMode(window, GLFW_STICK_KEYS, GL_TRUE);
+    glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
 
     do
     {
-        glfwSwapBuffers();
+        glfwSwapBuffers(window);
         glfwPollEvents();
     }
-    while (glfwGetKey(window, GLFW_ESCAPE) != GLFW_PRESSED &&
-            !glfwWindowShouldClose());
+    while (glfwGetKey(window, GLFW_KEY_ESCAPE) != GLFW_PRESS &&
+            !glfwWindowShouldClose(window));
 
     glfwDestroyWindow(window);
     return 0;
