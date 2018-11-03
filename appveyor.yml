@@ -29,6 +29,7 @@ skip_commits:
 
 cache:
   - C:\Tools\vcpkg\installed\ -> appveyor.yml
+  - '%APPVEYOR_BUILD_FOLDER%\build -> CMakeLists.txt'
 
 install:
   - cmd: vcpkg install glew:x64-windows
