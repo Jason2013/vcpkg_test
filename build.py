@@ -47,7 +47,7 @@ def BuildScript():
     CMAKE_COMMAND1 = 'cmake -G"{GENERATOR}" -DCMAKE_TOOLCHAIN_FILE=c:/tools/vcpkg/scripts/buildsystems/vcpkg.cmake ..\n'.format(GENERATOR=Generator)
     CMAKE_COMMAND2 = 'cmake --build . --config ' + Config + '\n'
 
-    CMAKE_COMMANDS = ["mkdir build",
+    CMAKE_COMMANDS = ["mkdir build\n",
         "cd build\n",
         CMAKE_COMMAND1,
         ERROR_COMMAND,
