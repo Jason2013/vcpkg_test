@@ -32,12 +32,14 @@ cache:
   - '%APPVEYOR_BUILD_FOLDER%\build -> CMakeLists.txt'
 
 install:
-  - cmd: vcpkg install glew:x64-windows
-  - cmd: vcpkg install glew:x86-windows
-  - cmd: vcpkg install glfw3:x64-windows
-  - cmd: vcpkg install glfw3:x86-windows
-  - cmd: vcpkg install glm:x64-windows
-  - cmd: vcpkg install glm:x86-windows
+  - cmd: C:\Python36-x64\python.exe build.py install
+  - cmd: type install.bat
+  - cmd: install.bat
+  # - cmd: vcpkg install glew:x86-windows
+  # - cmd: vcpkg install glfw3:x64-windows
+  # - cmd: vcpkg install glfw3:x86-windows
+  # - cmd: vcpkg install glm:x64-windows
+  # - cmd: vcpkg install glm:x86-windows
 
 # glew:x64-windows                                   2.1.0-1          The OpenGL Extension Wrangler Library (GLEW) is ...
 # glew:x86-windows                                   2.1.0-1          The OpenGL Extension Wrangler Library (GLEW) is ...
@@ -56,6 +58,6 @@ before_build:
   - cmd: vcpkg list
 
 build_script:
-  - cmd: C:\Python36-x64\python.exe build.py
+  - cmd: C:\Python36-x64\python.exe build.py build
   - cmd: type build.bat
   - cmd: build.bat
