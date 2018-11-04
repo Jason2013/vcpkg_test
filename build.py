@@ -14,7 +14,7 @@ def InstallScript():
     Platform = os.environ["Platform"]
     assert(Platform in ["x86", "x64"])
     ERROR_COMMAND = 'IF %ERRORLEVEL% NEQ 0 EXIT /B 1\n'
-    VCPKG_INSTALL = "vcpkg install --triplet={PLATFORM}-windows {PACKAGE}\n"
+    VCPKG_INSTALL = "vcpkg install --triplet {PLATFORM}-windows {PACKAGE}\n"
 
     s = ''.join([VCPKG_INSTALL.format(PLATFORM=Platform, PACKAGE=pkg) + ERROR_COMMAND for pkg in packages])
 
