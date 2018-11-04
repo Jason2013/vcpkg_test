@@ -4,6 +4,7 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
+#include <common/shader.hpp>
 
 GLFWwindow* window;
 
@@ -49,14 +50,19 @@ int main()
     GLuint buffer;
     glGenBuffers(1, &buffer);
     glBindBuffer(GL_ARRAY_BUFFER, buffer);
-    glBufferData(GL_ARRAR_BUFFER, sizeof(positions), positions, GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(positions), positions, GL_STATIC_DRAW);
+    //
+	// Create and compile our GLSL program from the shaders
+	GLuint programID = LoadShaders( "SimpleVertexShader.vertexshader", "SimpleFragmentShader.fragmentshader" );
 
     do
     {
         glClear(GL_COLOR_BUFFER_BIT);
 
+        glUseProgram(programID);
+
         glBindBuffer(GL_ARRAY_BUFFER, buffer);
-        glEnableVertexAttrib(0);
+        glEnableVertexAttribArray(0);
         glVertexAttribPointer(0,
             3,
             GL_FLOAT,
@@ -64,7 +70,7 @@ int main()
             sizeof(GLfloat) * 3,
             (const void*)0);
 
-        glDrawArrays(GL_TRIANGLE_LIST, 0, 3);
+        glDrawArrays(GL_TRIANGLES, 0, 3);
 
         glfwSwapBuffers(window);
         glfwPollEvents();
