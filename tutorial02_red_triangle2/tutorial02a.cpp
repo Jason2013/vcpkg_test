@@ -40,6 +40,10 @@ int main()
 
     glClearColor(0.0f, 0.0f, 0.4f, 0.0f);
 
+	GLuint VertexArrayID;
+	glGenVertexArrays(1, &VertexArrayID);
+	glBindVertexArray(VertexArrayID);
+
     GLfloat positions[] =
     {
         -1.0f, -1.0f, 0.0f,
