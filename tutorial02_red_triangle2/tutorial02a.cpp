@@ -39,9 +39,32 @@ int main()
 
     glClearColor(0.0f, 0.0f, 0.4f, 0.0f);
 
+    GLfloat positions[] =
+    {
+        -1.0f, -1.0f, 0.0f,
+         1.0f, -1.0f, 0.0f,
+         0.0f,  1.0f, 0.0f,
+    };
+
+    GLuint buffer;
+    glGenBuffers(1, &buffer);
+    glBindBuffer(GL_ARRAY_BUFFER, buffer);
+    glBufferData(GL_ARRAR_BUFFER, sizeof(positions), positions, GL_STATIC_DRAW);
+
     do
     {
         glClear(GL_COLOR_BUFFER_BIT);
+
+        glBindBuffer(GL_ARRAY_BUFFER, buffer);
+        glEnableVertexAttrib(0);
+        glVertexAttribPointer(0,
+            3,
+            GL_FLOAT,
+            GL_FALSE,
+            sizeof(GLfloat) * 3,
+            (const void*)0);
+
+        glDrawArrays(GL_TRIANGLE_LIST, 0, 3);
 
         glfwSwapBuffers(window);
         glfwPollEvents();
