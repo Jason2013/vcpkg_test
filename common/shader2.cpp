@@ -37,7 +37,9 @@ GLuint CompileShader(const char* shaderPath, GLuint shaderType)
     glGetShaderiv(shaderId, GL_INFO_LOG_LENGTH, &log_len);
     if (log_len > 0)
     {
-        fprintf(stderr, "Cannot compile file: %s\n", shaderPath);
+        vector<GLchar> log(log_len);
+        glGetShaderInfoLog(shaderId, log.size(), nullptr, log.data());
+        fprintf(stderr, "Cannot compile file: %s\nerror: %s\n", shaderPath, log.data());
         return 0;
     }
 
