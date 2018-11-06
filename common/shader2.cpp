@@ -1,5 +1,9 @@
 #include "shader2.h"
-#include <ifstream>
+#include <GL/glew.h>
+/* #include <iostream> */
+#include <fstream>
+#include <sstream>
+#include <string>
 #include <vector>
 using namespace std;
 
@@ -8,7 +12,8 @@ GLuint CompileShader(const char* shaderPath, GLuint shaderType)
     GLuint shaderId = glCreateShader(shaderType);
 
     ifstream stream(shaderPath);
-    vector<char> source;
+    //vector<char> source;
+    string source;
     if (stream.is_open())
     {
         stringstream ss;
@@ -22,13 +27,14 @@ GLuint CompileShader(const char* shaderPath, GLuint shaderType)
         return 0;
     }
 
-    glShaderSource(shaderId, 1, source.data(), source.size());
+    const char* src = source.c_str();
+    glShaderSource(shaderId, 1, &src, nullptr);
     glCompileShader(shaderId);
 
-    GLuint error;
-    GLuint log_len;
-    glGetParameteri(shaderId, GL_COMPILE_STATUS, &error);
-    glGetParameteri(shaderId, GL_LOG_INFO_LENGTH, &log_len);
+    GLint error;
+    GLint log_len;
+    glGetShaderiv(shaderId, GL_COMPILE_STATUS, &error);
+    glGetShaderiv(shaderId, GL_INFO_LOG_LENGTH, &log_len);
     if (log_len > 0)
     {
         fprintf(stderr, "Cannot compile file: %s\n", shaderPath);
@@ -47,31 +53,31 @@ GLuint LoaderShaders(const char* vertexShaderPath, const char* pixelShaderPath)
     {
         return 0;
     }
-    GLuint pixelShader = CompileShader(pixelShaderPath, GL_PIXEL_SHADER);
+    GLuint pixelShader = CompileShader(pixelShaderPath, GL_FRAGMENT_SHADER);
     if (pixelShader == 0)
     {
         return 0;
     }
     GLuint programID = glCreateProgram();
-    glAttachShader(vertexShader);
-    glAttachShader(pixelShader);
+    glAttachShader(programID, vertexShader);
+    glAttachShader(programID, pixelShader);
 
     glLinkProgram(programID);
 
-    GLuint error;
-    GLuint log_len;
-    glGetParameteri(programId, GL_LINK_STATUS, &error);
-    glGetParameteri(programId, GL_LOG_INFO_LENGTH, &log_len);
+    GLint error;
+    GLint log_len;
+    glGetProgramiv(programID, GL_LINK_STATUS, &error);
+    glGetProgramiv(programID, GL_INFO_LOG_LENGTH, &log_len);
     if (log_len > 0)
     {
         fprintf(stderr, "Cannot link program.\n");
         return 0;
     }
-    glDetachShader(vertexShader);
-    glDetachShader(pixelShader);
-    glDestroyShader(vertexShader);
-    glDestroyShader(pixelShader);
+    glDetachShader(programID, vertexShader);
+    glDetachShader(programID, pixelShader);
+    glDeleteShader(vertexShader);
+    glDeleteShader(pixelShader);
 
-    return programId;
+    return programID;
 }
 
