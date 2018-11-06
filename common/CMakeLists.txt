@@ -1,6 +1,6 @@
 set(TARGET_NAME common)
 add_library(${TARGET_NAME} STATIC
-    shader.cpp
+    shader2.cpp
     )
 
 target_include_directories(${TARGET_NAME} PRIVATE
