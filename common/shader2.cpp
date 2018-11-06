@@ -46,7 +46,7 @@ GLuint CompileShader(const char* shaderPath, GLuint shaderType)
 
 
 
-GLuint LoaderShaders(const char* vertexShaderPath, const char* pixelShaderPath)
+GLuint LoadShaders(const char* vertexShaderPath, const char* pixelShaderPath)
 {
     GLuint vertexShader = CompileShader(vertexShaderPath, GL_VERTEX_SHADER);
     if (vertexShader == 0)
