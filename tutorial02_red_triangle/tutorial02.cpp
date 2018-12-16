@@ -50,6 +50,13 @@ int main( void )
 		return -1;
 	}
 
+    int extCount = 0;
+    glGetIntegerv(GL_NUM_EXTENSIONS, &extCount);
+    for (int i = 0; i < extCount; i++)
+    {
+        fprintf(stdout, "[%d] %s\n", i, glGetStringi(GL_EXTENSIONS, i));
+    }
+
 	// Ensure we can capture the escape key being pressed below
 	glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
 
