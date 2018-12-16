@@ -44,7 +44,7 @@ def BuildScript():
         Generator += " Win64"
 
     ERROR_COMMAND = 'IF %ERRORLEVEL% NEQ 0 EXIT /B 1\n'
-    CMAKE_COMMAND1 = 'cmake -G"{GENERATOR}" -DCMAKE_TOOLCHAIN_FILE=c:/tools/vcpkg/scripts/buildsystems/vcpkg.cmake ..\n'.format(GENERATOR=Generator)
+    CMAKE_COMMAND1 = 'cmake -G"{GENERATOR}" -DCMAKE_TOOLCHAIN_FILE=c:/tools/vcpkg/scripts/buildsystems/vcpkg.cmake -DVCPKG_TARGET_TRIPLET={PLATFORM}-windows ..\n'.format(GENERATOR=Generator,PLATFORM=Platform)
     CMAKE_COMMAND2 = 'cmake --build . --config ' + Config + '\n'
 
     CMAKE_COMMANDS = ["mkdir build\n",
