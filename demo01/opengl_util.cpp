@@ -1,14 +1,9 @@
 // NOTE:  THERE IS NOTHING COMPUTE SHADER SPECIFIC IN THIS FILE
 #include "opengl.h"
-//#include <X11/Xatom.h>
 
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-
-//Display *d_dpy;
-//Window d_win;
-//GLXContext d_ctx;
 
 GLFWwindow* window = nullptr;
 
@@ -120,79 +115,6 @@ void checkErrors(std::string desc) {
 }
 
 int initGL() {
-	//if (!(d_dpy = XOpenDisplay(NULL))) {
-	//	fprintf(stderr, "Couldn't open X11 display\n");
-	//	exit(10);
-	//}
-
-	//int attr[] = {
-	//	GLX_RGBA,
-	//	GLX_RED_SIZE, 1,
-	//	GLX_GREEN_SIZE, 1,
-	//	GLX_BLUE_SIZE, 1,
-	//	GLX_DOUBLEBUFFER,
-	//	None
-	//};
-
-	//int scrnum = DefaultScreen(d_dpy);
-	//Window root = RootWindow(d_dpy, scrnum);
- //   
-	//int elemc;
-	//GLXFBConfig *fbcfg = glXChooseFBConfig(d_dpy, scrnum, NULL, &elemc);
-	//if (!fbcfg) {
-	//	fprintf(stderr, "Couldn't get FB configs\n");
-	//	exit(11);
-	//}
-
-	//XVisualInfo *visinfo = glXChooseVisual(d_dpy, scrnum, attr);
-
-	//if (!visinfo) {
-	//	fprintf(stderr, "Couldn't get a visual\n");
-	//	exit(12);
-	//}
-
-	//// Window parameters
-	//XSetWindowAttributes winattr;
-	//winattr.background_pixel = 0;
-	//winattr.border_pixel = 0;
-	//winattr.colormap = XCreateColormap(d_dpy, root, visinfo->visual, AllocNone);
-	//winattr.event_mask = StructureNotifyMask | ExposureMask | KeyPressMask;
-	//unsigned long mask = CWBackPixel | CWBorderPixel | CWColormap | CWEventMask;
-
-	//printf("Window depth %d, %dx%d\n", visinfo->depth, WIN_WIDTH, WIN_HEIGHT);
-	//d_win = XCreateWindow(d_dpy, root, -1, -1, WIN_WIDTH, WIN_HEIGHT, 0, 
-	//		visinfo->depth, InputOutput, visinfo->visual, mask, &winattr);
-
-	//// OpenGL version 4.3, forward compatible core profile
-	//int gl3attr[] = {
- //       GLX_CONTEXT_MAJOR_VERSION_ARB, 4,
- //       GLX_CONTEXT_MINOR_VERSION_ARB, 3,
- //       GLX_CONTEXT_PROFILE_MASK_ARB, GLX_CONTEXT_CORE_PROFILE_BIT_ARB,
- //       GLX_CONTEXT_FLAGS_ARB, GLX_CONTEXT_FORWARD_COMPATIBLE_BIT_ARB,
-	//	None
- //   };
-
-	//d_ctx = glXCreateContextAttribsARB(d_dpy, fbcfg[0], NULL, true, gl3attr);
-
-	//if (!d_ctx) {
-	//	fprintf(stderr, "Couldn't create an OpenGL context\n");
-	//	exit(13);
-	//}
-
-	//XFree(visinfo);
-
-	//// Setting the window name
-	//XTextProperty windowName;
-	//windowName.value = (unsigned char *) "OpenGL compute shader demo";
-	//windowName.encoding = XA_STRING;
-	//windowName.format = 8;
-	//windowName.nitems = strlen((char *) windowName.value);
-
-	//XSetWMName(d_dpy, d_win, &windowName);
-
-	//XMapWindow(d_dpy, d_win);
-	//glXMakeCurrent(d_dpy, d_win, d_ctx);
-	
     // Initialise GLFW
     if (!glfwInit())
     {
@@ -254,7 +176,6 @@ int initGL() {
 }
 
 void swapBuffers() {
-	//glXSwapBuffers(d_dpy, d_win);
     glfwSwapBuffers(window);
     checkErrors("Swapping bufs");
 }
