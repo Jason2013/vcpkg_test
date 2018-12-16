@@ -4,20 +4,25 @@
 #define GL_GLEXT_PROTOTYPES
 #define GLX_GLXEXT_PROTOTYPES
 
-#include <X11/Xlib.h>
-#include <GL/gl.h>
-#include <GL/glx.h>
-#include <GL/glu.h>
+//#include <X11/Xlib.h>
+//#include <GL/gl.h>
+//#include <GL/glx.h>
+//#include <GL/glu.h>
+//
+//// This includes the new stuff, supplied by the application
+//#include "GL/glext.h"
 
-// This includes the new stuff, supplied by the application
-#include "GL/glext.h"
+#include <GL/glew.h>
+#include <GLFW/glfw3.h>
+
+extern GLFWwindow* window;
 
 #include <string>
 
 #define WIN_WIDTH 800
 #define WIN_HEIGHT 600
 
-void initGL();
+int initGL();
 void swapBuffers();
 
 // Return handles

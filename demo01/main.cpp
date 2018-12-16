@@ -25,6 +25,7 @@ void updateTex(int frame) {
 	glUniform1f(glGetUniformLocation(computeHandle, "roll"), (float)frame*0.01f);
 	glDispatchCompute(512/16, 512/16, 1); // 512^2 threads in blocks of 16^2
 	checkErrors("Dispatch compute shader");
+    glfwPollEvents();
 }
 
 void draw() {
