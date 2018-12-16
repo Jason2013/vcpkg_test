@@ -5,14 +5,16 @@ import sys
 
 def InstallScript():
     packages = [
-        "glew", 
+        "glew",
         "glfw3",
         "glm",
     ]
-    pass
+
     # vcpkg install --triplet=x86-windows:x64-windows <pkg>
     Platform = os.environ["Platform"]
-    assert(Platform in ["x86", "x64"])
+    if not Platform in ["x86", "x64"]:
+        raise AssertionError()
+
     ERROR_COMMAND = 'IF %ERRORLEVEL% NEQ 0 EXIT /B 1\n'
     VCPKG_INSTALL = "vcpkg install --triplet {PLATFORM}-windows {PACKAGE}\n"
 
@@ -60,9 +62,13 @@ def BuildScript():
         f.write("".join(CMAKE_COMMANDS))
 
 if __name__ == "__main__":
-    assert len(sys.argv) == 2
+    if not len(sys.argv) == 2:
+        raise AssertionError()
+
     mode = sys.argv[1]
-    assert mode in ("install", "build")
+    if not mode in ("install", "build"):
+        raise AssertionError()
+
     print(mode)
 
     if mode == "install":
