@@ -24,30 +24,30 @@ def InstallScript():
         f.write(s)
 
 def BuildScript():
-    print(os.environ["APPVEYOR_BUILD_WORKER_IMAGE"])
-    print(os.environ["Configuration"])
-    print(os.environ["Platform"])
+    # print(os.environ["APPVEYOR_BUILD_WORKER_IMAGE"])
+    # print(os.environ["Configuration"])
+    # print(os.environ["Platform"])
 
-    VS = os.environ["APPVEYOR_BUILD_WORKER_IMAGE"]
-    Config = os.environ["Configuration"]
-    Platform = os.environ["Platform"]
+    # VS = os.environ["APPVEYOR_BUILD_WORKER_IMAGE"]
+    # Config = os.environ["Configuration"]
+    # Platform = os.environ["Platform"]
 
     VS_MAP = {
         "Visual Studio 2017" : "Visual Studio 15 2017",
-        "Visual Studio 2015" : "Visual Studio 14 2015",
-        "Visual Studio 2013" : "Visual Studio 12 2013",
-        "Visual Studio 2012" : "Visual Studio 11 2012",
-        "Visual Studio 2010" : "Visual Studio 10 2010",
-        "Visual Studio 2008" : "Visual Studio 9 2008",
+        # "Visual Studio 2015" : "Visual Studio 14 2015",
+        # "Visual Studio 2013" : "Visual Studio 12 2013",
+        # "Visual Studio 2012" : "Visual Studio 11 2012",
+        # "Visual Studio 2010" : "Visual Studio 10 2010",
+        # "Visual Studio 2008" : "Visual Studio 9 2008",
     }
 
-    Generator = VS_MAP[VS]
-    if Platform == "x64":
-        Generator += " Win64"
+    # Generator = VS_MAP[VS]
+    # if Platform == "x64":
+    #     Generator += " Win64"
 
     ERROR_COMMAND = 'IF %ERRORLEVEL% NEQ 0 EXIT /B 1\n'
-    CMAKE_COMMAND1 = 'cmake -G"{GENERATOR}" -DCMAKE_TOOLCHAIN_FILE=c:/tools/vcpkg/scripts/buildsystems/vcpkg.cmake -DVCPKG_TARGET_TRIPLET={PLATFORM}-windows ..\n'.format(GENERATOR=Generator,PLATFORM=Platform)
-    CMAKE_COMMAND2 = 'cmake --build . --config ' + Config + '\n'
+    CMAKE_COMMAND1 = 'cmake -G"Visual Studio 15 2017 Win64" -DCMAKE_TOOLCHAIN_FILE=c:/tools/vcpkg/scripts/buildsystems/vcpkg.cmake -DVCPKG_TARGET_TRIPLET=x64-windows ..\n'
+    CMAKE_COMMAND2 = 'cmake --build . \n'
 
     CMAKE_COMMANDS = ["mkdir build\n",
         "cd build\n",
