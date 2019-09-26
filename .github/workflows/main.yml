@@ -33,16 +33,16 @@ jobs:
                   cd %GITHUB_WORKSPACE%
                   cd
                   dir
-                  python build.py install
+                  python build_github_actions.py install
                   type install.bat
                   install.bat
-              # run: python %GITHUB_WORKSPACE%\build.py install
+              # run: python %GITHUB_WORKSPACE%\build_github_actions.py install
             # - run: type install.bat
             # - run: install.bat
             - name: Build VCPKG Packages
               run: |
                   cd %GITHUB_WORKSPACE%
-                  python build.py build
+                  python build_github_actions.py build
                   type build.bat
                   build.bat
 
