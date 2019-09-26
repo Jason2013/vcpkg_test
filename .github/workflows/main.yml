@@ -28,13 +28,20 @@ jobs:
             - run: set
             - run: vcpkg list
             - name: Install VCPKG Packages
-              run: python build.py install
-            - run: type install.bat
-            - run: install.bat
+              run: |
+                  cd %GITHUB_WORKSPACE%
+                  python build.py install
+                  type install.bat
+                  install.bat
+              # run: python %GITHUB_WORKSPACE%\build.py install
+            # - run: type install.bat
+            # - run: install.bat
             - name: Build VCPKG Packages
-              run: python build.py build
-            - run: type build.bat
-            - run: build.bat
+              run: |
+                  cd %GITHUB_WORKSPACE%
+                  python build.py build
+                  type build.bat
+                  build.bat
 
 
 # # install: true
