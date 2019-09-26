@@ -30,6 +30,8 @@ jobs:
             - name: Install VCPKG Packages
               run: |
                   cd %GITHUB_WORKSPACE%
+                  cd
+                  dir
                   python build.py install
                   type install.bat
                   install.bat
