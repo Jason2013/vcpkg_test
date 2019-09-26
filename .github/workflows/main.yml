@@ -27,6 +27,14 @@ jobs:
             - run: git --version
             - run: set
             - run: vcpkg list
+            - name: Install VCPKG Packages
+              run: python build.py install
+            - run: type install.bat
+            - run: install.bat
+            - name: Build VCPKG Packages
+              run: python build.py build
+            - run: type build.bat
+            - run: build.bat
 
 
 # # install: true
