@@ -28,6 +28,10 @@ jobs:
                 config: [Debug, Release]
         steps:
             - uses: actions/checkout@v1
+            # https://github.com/marketplace/actions/setup-python-environment
+            - uses: actions/setup-python@v1
+              with:
+                  python-version: '3.x'
             - run: cmake --version
               shell: cmd
             # - run: git --version

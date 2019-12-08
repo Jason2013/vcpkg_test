@@ -2,4 +2,4 @@
 
 import sys
 
-echo "VS=%s" % sys.argv
+print("VS=%s" % sys.argv)
