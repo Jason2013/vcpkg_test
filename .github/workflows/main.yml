@@ -26,7 +26,9 @@ jobs:
             - uses: actions/checkout@v1
             - run: cmake --version
             - run: git --version
-            - run: set
+            - run: |
+                cd
+                set
               shell: cmd
             # - run: vcpkg list
             - name: CMake and Build
@@ -38,9 +40,11 @@ jobs:
                   cmake --build .
               shell: cmd
             - name: Test Run
-              run: hello
+              run: |
+                  cd
+                  hello
               shell: cmd
-              working-directory: %GITHUB_WORKSPACE%/build/Debug
+              # working-directory: %GITHUB_WORKSPACE%\build\Debug
             # - name: Install VCPKG Packages
             #   run: |
             #       cd %GITHUB_WORKSPACE%
