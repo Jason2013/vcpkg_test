@@ -22,6 +22,9 @@ jobs:
     build:
         name: test build
         runs-on: windows-latest
+        strategy:
+            matrix:
+                config: [Debug, Release]
         steps:
             - uses: actions/checkout@v1
             - run: cmake --version
@@ -31,34 +34,34 @@ jobs:
                 set
               shell: cmd
             # - run: vcpkg list
-            - name: Build Debug
+            - name: Build ${{ matrix.config }}
               run: |
                   cd %GITHUB_WORKSPACE%
                   if not exist build mkdir build
                   cd build
                   cmake ..
-                  cmake --build .
+                  cmake --build . --config ${{ matrix.config }}
               shell: cmd
-            - name: Test Debug
+            - name: Test ${{ matrix.config }}
               run: |
                   cd
                   hello
               shell: cmd
-              working-directory: build\Debug
-            - name: Build Release
-              run: |
-                  cd %GITHUB_WORKSPACE%
-                  if not exist build mkdir build
-                  cd build
-                  cmake ..
-                  cmake --build . --config Release
-              shell: cmd
-            - name: Test Release
-              run: |
-                  cd
-                  hello
-              shell: cmd
-              working-directory: build\Release
+              working-directory: build\${{ matrix.config }}
+            # - name: Build Release
+            #   run: |
+            #       cd %GITHUB_WORKSPACE%
+            #       if not exist build mkdir build
+            #       cd build
+            #       cmake ..
+            #       cmake --build . --config Release
+            #   shell: cmd
+            # - name: Test Release
+            #   run: |
+            #       cd
+            #       hello
+            #   shell: cmd
+            #   working-directory: build\Release
             # - name: Install VCPKG Packages
             #   run: |
             #       cd %GITHUB_WORKSPACE%
