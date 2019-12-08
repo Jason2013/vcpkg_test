@@ -24,6 +24,7 @@ jobs:
         runs-on: windows-latest
         strategy:
             matrix:
+                visualstudio: ["Visual Studio 16 2019", "Visual Studio 15 2017"]
                 config: [Debug, Release]
         steps:
             - uses: actions/checkout@v1
@@ -39,7 +40,7 @@ jobs:
                   cd %GITHUB_WORKSPACE%
                   if not exist build mkdir build
                   cd build
-                  cmake ..
+                  cmake -G"${{ matrix.visualstudio }}" ..
                   cmake --build . --config ${{ matrix.config }}
               shell: cmd
             - name: Test ${{ matrix.config }}
