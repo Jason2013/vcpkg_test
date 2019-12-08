@@ -27,24 +27,31 @@ jobs:
             - run: cmake --version
             - run: git --version
             - run: set
-            - run: vcpkg list
-            - name: Install VCPKG Packages
+            # - run: vcpkg list
+            - name: CMake and Build
               run: |
                   cd %GITHUB_WORKSPACE%
-                  cd
-                  dir
-                  python build_github_actions.py install
-                  type install.bat
-                  install.bat
-              # run: python %GITHUB_WORKSPACE%\build_github_actions.py install
-            # - run: type install.bat
-            # - run: install.bat
-            - name: Build VCPKG Packages
-              run: |
-                  cd %GITHUB_WORKSPACE%
-                  python build_github_actions.py build
-                  type build.bat
-                  build.bat
+                  if not exist build mkdir build
+                  cd build
+                  cmake ..
+                  cmake --build .
+            # - name: Install VCPKG Packages
+            #   run: |
+            #       cd %GITHUB_WORKSPACE%
+            #       cd
+            #       dir
+            #       python build_github_actions.py install
+            #       type install.bat
+            #       install.bat
+            #   # run: python %GITHUB_WORKSPACE%\build_github_actions.py install
+            # # - run: type install.bat
+            # # - run: install.bat
+            # - name: Build VCPKG Packages
+            #   run: |
+            #       cd %GITHUB_WORKSPACE%
+            #       python build_github_actions.py build
+            #       type build.bat
+            #       build.bat
 
 
 # # install: true

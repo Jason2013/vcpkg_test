@@ -1,18 +1,20 @@
-cmake_minimum_required(VERSION 3.0)
+cmake_minimum_required(VERSION 3.10)
 
 project(vcpkg_test)
 
-find_package(glfw3 CONFIG REQUIRED)
-find_package(glew REQUIRED)
-find_package(glm CONFIG REQUIRED)
+add_executable(hello main.cpp)
 
-add_subdirectory(common)
+# find_package(glfw3 CONFIG REQUIRED)
+# find_package(glew REQUIRED)
+# find_package(glm CONFIG REQUIRED)
 
-include_directories(
-    ${CMAKE_SOURCE_DIR}
-    )
+# add_subdirectory(common)
 
-link_libraries(common)
+# include_directories(
+#     ${CMAKE_SOURCE_DIR}
+#     )
 
-add_subdirectory(tutorial01_first_window)
-add_subdirectory(tutorial02_red_triangle)
+# link_libraries(common)
+
+# add_subdirectory(tutorial01_first_window)
+# add_subdirectory(tutorial02_red_triangle)
