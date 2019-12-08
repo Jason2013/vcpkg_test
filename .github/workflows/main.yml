@@ -44,7 +44,7 @@ jobs:
                   cd
                   hello
               shell: cmd
-              # working-directory: %GITHUB_WORKSPACE%\build\Debug
+              working-directory: build\Debug
             # - name: Install VCPKG Packages
             #   run: |
             #       cd %GITHUB_WORKSPACE%
