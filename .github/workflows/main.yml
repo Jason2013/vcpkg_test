@@ -31,7 +31,7 @@ jobs:
             - run: cmake --version
               shell: cmd
             # - run: git --version
-            - run: python show.py ${{ visualstudio }}
+            - run: python show.py ${{ matrix.visualstudio }}
               shell: bash
             - run: |
                 cd
