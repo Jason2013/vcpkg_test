@@ -37,6 +37,10 @@ jobs:
                   cmake ..
                   cmake --build .
               shell: cmd
+            - name: Test Run
+              run: hello
+              shell: cmd
+              working-directory: %GITHUB_WORKSPACE%/build/Debug
             # - name: Install VCPKG Packages
             #   run: |
             #       cd %GITHUB_WORKSPACE%
