@@ -27,6 +27,7 @@ jobs:
             - run: cmake --version
             - run: git --version
             - run: set
+              shell: cmd
             # - run: vcpkg list
             - name: CMake and Build
               run: |
@@ -35,6 +36,7 @@ jobs:
                   cd build
                   cmake ..
                   cmake --build .
+              shell: cmd
             # - name: Install VCPKG Packages
             #   run: |
             #       cd %GITHUB_WORKSPACE%
