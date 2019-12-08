@@ -49,7 +49,7 @@ jobs:
                   cd
                   hello
               shell: cmd
-              working-directory: "build${{ matrix.visualstudio }}\${{ matrix.config }}"
+              working-directory: build${{ matrix.visualstudio }}\${{ matrix.config }}
             # - name: Build Release
             #   run: |
             #       cd %GITHUB_WORKSPACE%
