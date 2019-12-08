@@ -38,8 +38,8 @@ jobs:
             - name: Build ${{ matrix.config }}
               run: |
                   cd %GITHUB_WORKSPACE%
-                  if not exist build mkdir build
-                  cd build
+                  if not exist build${{ matrix.visualstudio }} mkdir build${{ matrix.visualstudio }}
+                  cd build${{ matrix.visualstudio }}
                   cmake -G"${{ matrix.visualstudio }}" ..
                   cmake --build . --config ${{ matrix.config }}
               shell: cmd
@@ -48,7 +48,7 @@ jobs:
                   cd
                   hello
               shell: cmd
-              working-directory: build\${{ matrix.config }}
+              working-directory: build${{ matrix.visualstudio }}\${{ matrix.config }}
             # - name: Build Release
             #   run: |
             #       cd %GITHUB_WORKSPACE%
