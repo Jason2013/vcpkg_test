@@ -31,7 +31,7 @@ jobs:
                 set
               shell: cmd
             # - run: vcpkg list
-            - name: CMake and Build
+            - name: Build Debug
               run: |
                   cd %GITHUB_WORKSPACE%
                   if not exist build mkdir build
@@ -39,12 +39,26 @@ jobs:
                   cmake ..
                   cmake --build .
               shell: cmd
-            - name: Test Run
+            - name: Test Debug
               run: |
                   cd
                   hello
               shell: cmd
               working-directory: build\Debug
+            - name: Build Release
+              run: |
+                  cd %GITHUB_WORKSPACE%
+                  if not exist build mkdir build
+                  cd build
+                  cmake ..
+                  cmake --build . --config Release
+              shell: cmd
+            - name: Test Release
+              run: |
+                  cd
+                  hello
+              shell: cmd
+              working-directory: build\Release
             # - name: Install VCPKG Packages
             #   run: |
             #       cd %GITHUB_WORKSPACE%
