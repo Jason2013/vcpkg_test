@@ -59,7 +59,7 @@ def BuildScript(visualstudio, architecture, config):
         "cd ..\n",
     ]
 
-    with open("{}.bat".format(BUILD_DIR), "w") as f:
+    with open("build_{}_{}.bat".format(architecture, config), "w") as f:
         f.write("".join(CMAKE_COMMANDS))
 
 if __name__ == "__main__":

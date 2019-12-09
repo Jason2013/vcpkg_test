@@ -52,10 +52,16 @@ jobs:
               shell: cmd
             # - run: vcpkg list
             - name: Install ${{ matrix.architecture }} ${{ matrix.config }}
-              run: python build_github_actions.py install "${{ matrix.visualstudio }}" ${{ matrix.architecture }} ${{ matrix.config }}
+              run: |
+                  python build_github_actions.py install "${{ matrix.visualstudio }}" ${{ matrix.architecture }} ${{ matrix.config }}
+                  type install_${{ matrix.architecture }}.bat
+                  install_${{ matrix.architecture }}.bat
               shell: cmd
             - name: Build ${{ matrix.architecture }} ${{ matrix.config }}
-              run: python build_github_actions.py build "${{ matrix.visualstudio }}" ${{ matrix.architecture }} ${{ matrix.config }}
+              run: |
+                  python build_github_actions.py build "${{ matrix.visualstudio }}" ${{ matrix.architecture }} ${{ matrix.config }}
+                  type build_${{ matrix.architecture }}_${{ matrix.config }}.bat
+                  build_${{ matrix.architecture }}_${{ matrix.config }}.bat
                   # cd %GITHUB_WORKSPACE%
                   # if not exist "build${{ matrix.visualstudio }}" mkdir "build${{ matrix.visualstudio }}"
                   # cd "build${{ matrix.visualstudio }}"
