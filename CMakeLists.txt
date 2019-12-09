@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 3.0)
 
 project(vcpkg_test)
+variable_watch(GLEW_INCLUDE_DIRS)
 
 find_package(glfw3 CONFIG REQUIRED)
 find_package(glew REQUIRED)
