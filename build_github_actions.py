@@ -18,7 +18,7 @@ def InstallScript():
     ERROR_COMMAND = 'IF %ERRORLEVEL% NEQ 0 EXIT /B 1\n'
     VCPKG_INSTALL = "vcpkg install --triplet x64-windows {PACKAGE}\n"
 
-    s = "cd %VCPKG_INSTALL_ROOT%\n"
+    s = "cd %VCPKG_INSTALLATION_ROOT%\n"
     s += ''.join([VCPKG_INSTALL.format(PACKAGE=pkg) + ERROR_COMMAND for pkg in packages])
 
     with open("install.bat", "w") as f:
@@ -48,7 +48,7 @@ def BuildScript():
     #     Generator += " Win64"
 
     ERROR_COMMAND = 'IF %ERRORLEVEL% NEQ 0 EXIT /B 1\n'
-    CMAKE_COMMAND1 = 'cmake -G"Visual Studio 16 2019" -A x64 -DCMAKE_TOOLCHAIN_FILE=%VCPKG_INSTALL_ROOT%/scripts/buildsystems/vcpkg.cmake -DVCPKG_TARGET_TRIPLET=x64-windows ..\n'
+    CMAKE_COMMAND1 = 'cmake -G"Visual Studio 16 2019" -A x64 -DCMAKE_TOOLCHAIN_FILE=%VCPKG_INSTALLATION_ROOT%/scripts/buildsystems/vcpkg.cmake -DVCPKG_TARGET_TRIPLET=x64-windows ..\n'
     CMAKE_COMMAND2 = 'cmake --build . \n'
 
     CMAKE_COMMANDS = ["mkdir build\n",
