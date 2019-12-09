@@ -28,7 +28,7 @@ jobs:
                 #, "Visual Studio 15 2017"]
                 architecture:
                     - x64
-                    - Win32
+                    - x86
                 config:
                     - Debug
                     - Release
