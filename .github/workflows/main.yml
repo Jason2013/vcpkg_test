@@ -28,12 +28,12 @@ jobs:
               with:
                   python-version: '3.x'
             - name: Check Environment
-            - run: |
-                python --version
-                cmake --version
-                git --version
-                set
-                vcpkg list
+              run: |
+                  python --version
+                  cmake --version
+                  git --version
+                  set
+                  vcpkg list
               shell: cmd
             - name: Install VCPKG Packages
               run: |
