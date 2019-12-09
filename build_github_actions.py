@@ -46,7 +46,7 @@ def BuildScript(visualstudio, architecture, config):
     #     Generator += " Win64"
 
     ERROR_COMMAND = 'IF %ERRORLEVEL% NEQ 0 EXIT /B 1\n'
-    CMAKE_COMMAND1 = 'cmake -G"{VISUALSTUDIO}" -A {ARCHITECTURE} -DCMAKE_TOOLCHAIN_FILE=%VCPKG_INSTALLATION_ROOT%/scripts/buildsystems/vcpkg.cmake -DVCPKG_TARGET_TRIPLET={ARCHITECTURE}-windows ..\n'.format(VISUALSTUDIO=visualstudio, ARCHITECTURE=architecture)
+    CMAKE_COMMAND1 = 'cmake -G"{VISUALSTUDIO}" -A {ARCHITECTURE} -DCMAKE_TOOLCHAIN_FILE=%VCPKG_INSTALLATION_ROOT%/scripts/buildsystems/vcpkg.cmake -DVCPKG_TARGET_TRIPLET={ARCHITECTURE}-windows ..\n'.format(VISUALSTUDIO=visualstudio, ARCHITECTURE=("x64" if architecture=="x64" else "Win32"))
     CMAKE_COMMAND2 = 'cmake --build . --config {CONFIG}\n'.format(CONFIG=config)
 
     BUILD_DIR = "build_{ARCHITECTURE}".format(ARCHITECTURE=architecture)
