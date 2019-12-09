@@ -76,6 +76,6 @@ if __name__ == "__main__":
     print(mode)
 
     if mode == "install":
-        InstallScript()
+        InstallScript(visualstudio, architecture, config)
     elif mode == "build":
-        BuildScript()
+        BuildScript(visualstudio, architecture, config)
