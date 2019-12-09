@@ -36,6 +36,7 @@ jobs:
             - run: |
                 cmake --version
                 cmake --help
+                python --version
               shell: cmd
             # - run: git --version
             - run: python show.py "${{ matrix.visualstudio }}"
