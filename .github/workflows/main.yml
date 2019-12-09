@@ -69,6 +69,9 @@ jobs:
                   # cmake -G"${{ matrix.visualstudio }}" ..
                   # cmake --build . --config ${{ matrix.config }}
               shell: cmd
+            - name: show files
+              run: dir
+              shell: cmd
             # - name: Test ${{ matrix.config }}
             #   run: |
             #       cd
