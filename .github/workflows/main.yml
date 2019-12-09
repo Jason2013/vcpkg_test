@@ -24,7 +24,8 @@ jobs:
         runs-on: windows-latest
         strategy:
             matrix:
-                visualstudio: ["Visual Studio 16 2019", "Visual Studio 15 2017"]
+                visualstudio: ["Visual Studio 16 2019"]
+                #, "Visual Studio 15 2017"]
                 config: [Debug, Release]
         steps:
             - uses: actions/checkout@v1
