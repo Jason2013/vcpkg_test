@@ -18,7 +18,8 @@ def InstallScript():
     ERROR_COMMAND = 'IF %ERRORLEVEL% NEQ 0 EXIT /B 1\n'
     VCPKG_INSTALL = "vcpkg install --triplet x64-windows {PACKAGE}\n"
 
-    s = ''.join([VCPKG_INSTALL.format(PACKAGE=pkg) + ERROR_COMMAND for pkg in packages])
+    s = "cd %VCPKG_INSTALL_ROOT%\n"
+    s += ''.join([VCPKG_INSTALL.format(PACKAGE=pkg) + ERROR_COMMAND for pkg in packages])
 
     with open("install.bat", "w") as f:
         f.write(s)
@@ -33,7 +34,8 @@ def BuildScript():
     # Platform = os.environ["Platform"]
 
     VS_MAP = {
-        "Visual Studio 2017" : "Visual Studio 15 2017",
+        "Visual Studio 2019" : "Visual Studio 16 2019",
+        # "Visual Studio 2017" : "Visual Studio 15 2017",
         # "Visual Studio 2015" : "Visual Studio 14 2015",
         # "Visual Studio 2013" : "Visual Studio 12 2013",
         # "Visual Studio 2012" : "Visual Studio 11 2012",
@@ -46,7 +48,7 @@ def BuildScript():
     #     Generator += " Win64"
 
     ERROR_COMMAND = 'IF %ERRORLEVEL% NEQ 0 EXIT /B 1\n'
-    CMAKE_COMMAND1 = 'cmake -G"Visual Studio 15 2017 Win64" -DCMAKE_TOOLCHAIN_FILE=c:/tools/vcpkg/scripts/buildsystems/vcpkg.cmake -DVCPKG_TARGET_TRIPLET=x64-windows ..\n'
+    CMAKE_COMMAND1 = 'cmake -G"Visual Studio 16 2019 Win64" -DCMAKE_TOOLCHAIN_FILE=%VCPKG_INSTALL_ROOT%/scripts/buildsystems/vcpkg.cmake -DVCPKG_TARGET_TRIPLET=x64-windows ..\n'
     CMAKE_COMMAND2 = 'cmake --build . \n'
 
     CMAKE_COMMANDS = ["mkdir build\n",
