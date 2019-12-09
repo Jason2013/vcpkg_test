@@ -48,7 +48,7 @@ def BuildScript():
     #     Generator += " Win64"
 
     ERROR_COMMAND = 'IF %ERRORLEVEL% NEQ 0 EXIT /B 1\n'
-    CMAKE_COMMAND1 = 'cmake -G"Visual Studio 16 2019 Win64" -DCMAKE_TOOLCHAIN_FILE=%VCPKG_INSTALL_ROOT%/scripts/buildsystems/vcpkg.cmake -DVCPKG_TARGET_TRIPLET=x64-windows ..\n'
+    CMAKE_COMMAND1 = 'cmake -G"Visual Studio 16 2019" -A x64 -DCMAKE_TOOLCHAIN_FILE=%VCPKG_INSTALL_ROOT%/scripts/buildsystems/vcpkg.cmake -DVCPKG_TARGET_TRIPLET=x64-windows ..\n'
     CMAKE_COMMAND2 = 'cmake --build . \n'
 
     CMAKE_COMMANDS = ["mkdir build\n",
