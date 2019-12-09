@@ -16,7 +16,7 @@ def InstallScript(visualstudio, architecture, config):
     #     raise AssertionError()
 
     ERROR_COMMAND = 'IF %ERRORLEVEL% NEQ 0 EXIT /B 1\n'
-    VCPKG_INSTALL = "vcpkg install --triplet {ARCHITECTURE}-windows {PACKAGE}\n".format(ARCHITECTURE=architecture)
+    VCPKG_INSTALL = "vcpkg install --triplet {ARCHITECTURE}-windows {LP}PACKAGE{RP}\n".format(ARCHITECTURE=architecture, LP="{", RP="}")
 
     s = ''.join([VCPKG_INSTALL.format(PACKAGE=pkg) + ERROR_COMMAND for pkg in packages])
 
