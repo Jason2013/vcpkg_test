@@ -26,6 +26,9 @@ jobs:
             matrix:
                 visualstudio: ["Visual Studio 16 2019"]
                 #, "Visual Studio 15 2017"]
+                architecture:
+                    - x64
+                    - x86
                 config:
                     - Debug
                     - Release
@@ -48,20 +51,23 @@ jobs:
                 set
               shell: cmd
             # - run: vcpkg list
-            - name: Build ${{ matrix.config }}
-              run: |
-                  cd %GITHUB_WORKSPACE%
-                  if not exist "build${{ matrix.visualstudio }}" mkdir "build${{ matrix.visualstudio }}"
-                  cd "build${{ matrix.visualstudio }}"
-                  cmake -G"${{ matrix.visualstudio }}" ..
-                  cmake --build . --config ${{ matrix.config }}
+            - name: Install ${{ matrix.architecture }} ${{ matrix.config }}
+              run: python build_github_actions.py install "${{ matrix.visualstudio }}" ${{ matrix.architecture }} ${{ matrix.config }}
               shell: cmd
-            - name: Test ${{ matrix.config }}
-              run: |
-                  cd
-                  hello
+            - name: Build ${{ matrix.architecture }} ${{ matrix.config }}
+              run: python build_github_actions.py build "${{ matrix.visualstudio }}" ${{ matrix.architecture }} ${{ matrix.config }}
+                  # cd %GITHUB_WORKSPACE%
+                  # if not exist "build${{ matrix.visualstudio }}" mkdir "build${{ matrix.visualstudio }}"
+                  # cd "build${{ matrix.visualstudio }}"
+                  # cmake -G"${{ matrix.visualstudio }}" ..
+                  # cmake --build . --config ${{ matrix.config }}
               shell: cmd
-              working-directory: build${{ matrix.visualstudio }}\${{ matrix.config }}
+            # - name: Test ${{ matrix.config }}
+            #   run: |
+            #       cd
+            #       hello
+            #   shell: cmd
+            #   working-directory: build${{ matrix.visualstudio }}\${{ matrix.config }}
             # - name: Build Release
             #   run: |
             #       cd %GITHUB_WORKSPACE%

@@ -3,7 +3,7 @@
 import os
 import sys
 
-def InstallScript():
+def InstallScript(visualstudio, architecture, config):
     packages = [
         "glew",
         "glfw3",
@@ -16,14 +16,14 @@ def InstallScript():
     #     raise AssertionError()
 
     ERROR_COMMAND = 'IF %ERRORLEVEL% NEQ 0 EXIT /B 1\n'
-    VCPKG_INSTALL = "vcpkg install --triplet x64-windows {PACKAGE}\n"
+    VCPKG_INSTALL = "vcpkg install --triplet {ARCHITECTURE}-windows {PACKAGE}\n".format(ARCHITECTURE=architecture)
 
     s = ''.join([VCPKG_INSTALL.format(PACKAGE=pkg) + ERROR_COMMAND for pkg in packages])
 
-    with open("install.bat", "w") as f:
+    with open("install_{ARCHITECTURE}.bat".format(ARCHITECTURE=architecture), "w") as f:
         f.write(s)
 
-def BuildScript():
+def BuildScript(visualstudio, architecture, config):
     # print(os.environ["APPVEYOR_BUILD_WORKER_IMAGE"])
     # print(os.environ["Configuration"])
     # print(os.environ["Platform"])
@@ -33,7 +33,7 @@ def BuildScript():
     # Platform = os.environ["Platform"]
 
     VS_MAP = {
-        "Visual Studio 2017" : "Visual Studio 15 2017",
+        # "Visual Studio 2017" : "Visual Studio 15 2017",
         # "Visual Studio 2015" : "Visual Studio 14 2015",
         # "Visual Studio 2013" : "Visual Studio 12 2013",
         # "Visual Studio 2012" : "Visual Studio 11 2012",
@@ -46,11 +46,12 @@ def BuildScript():
     #     Generator += " Win64"
 
     ERROR_COMMAND = 'IF %ERRORLEVEL% NEQ 0 EXIT /B 1\n'
-    CMAKE_COMMAND1 = 'cmake -G"Visual Studio 15 2017 Win64" -DCMAKE_TOOLCHAIN_FILE=c:/tools/vcpkg/scripts/buildsystems/vcpkg.cmake -DVCPKG_TARGET_TRIPLET=x64-windows ..\n'
-    CMAKE_COMMAND2 = 'cmake --build . \n'
+    CMAKE_COMMAND1 = 'cmake -G"{VISUALSTUDIO}" -A {ARCHITECTURE} -DCMAKE_TOOLCHAIN_FILE=%VCPKG_INSTALLATION_DIR%/scripts/buildsystems/vcpkg.cmake -DVCPKG_TARGET_TRIPLET={ARCHITECTURE}-windows ..\n'.format(VISUALSTUDIO=visualstudio, ARCHITECTURE=architecture)
+    CMAKE_COMMAND2 = 'cmake --build . --config {CONFIG}\n'.format(CONFIG=config)
 
-    CMAKE_COMMANDS = ["mkdir build\n",
-        "cd build\n",
+    BUILD_DIR = "build_{ARCHITECTURE}".format(ARCHITECTURE=architecture)
+    CMAKE_COMMANDS = ["mkdir {}\n".format(BUILD_DIR),
+        "cd {}\n".format(BUILD_DIR),
         CMAKE_COMMAND1,
         ERROR_COMMAND,
         CMAKE_COMMAND2,
@@ -58,7 +59,7 @@ def BuildScript():
         "cd ..\n",
     ]
 
-    with open("build.bat", "w") as f:
+    with open("{}.bat".format(BUILD_DIR), "w") as f:
         f.write("".join(CMAKE_COMMANDS))
 
 if __name__ == "__main__":
@@ -69,6 +70,9 @@ if __name__ == "__main__":
     if not mode in ("install", "build"):
         raise AssertionError()
 
+    visualstudio = sys.argv[2]
+    architecture = sys.argv[3]
+    config = sys.argv[4]
     print(mode)
 
     if mode == "install":
