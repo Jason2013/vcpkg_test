@@ -24,10 +24,17 @@ jobs:
         runs-on: windows-latest
         steps:
             - uses: actions/checkout@v1
-            - run: cmake --version
-            - run: git --version
-            - run: set
-            - run: vcpkg list
+            - uses: actions/setup-python@v1
+              with:
+                  python-version: '3.x'
+            - name: Check Environment
+            - run: |
+                python --version
+                cmake --version
+                git --version
+                set
+                vcpkg list
+              shell: cmd
             - name: Install VCPKG Packages
               run: |
                   cd %GITHUB_WORKSPACE%
@@ -36,6 +43,7 @@ jobs:
                   python build_github_actions.py install
                   type install.bat
                   install.bat
+              shell: cmd
               # run: python %GITHUB_WORKSPACE%\build_github_actions.py install
             # - run: type install.bat
             # - run: install.bat
@@ -45,6 +53,7 @@ jobs:
                   python build_github_actions.py build
                   type build.bat
                   build.bat
+              shell: cmd
 
 
 # # install: true
