@@ -26,7 +26,9 @@ jobs:
             matrix:
                 visualstudio: ["Visual Studio 16 2019"]
                 #, "Visual Studio 15 2017"]
-                config: [Debug, Release]
+                config:
+                    - Debug
+                    - Release
         steps:
             - uses: actions/checkout@v1
             # https://github.com/marketplace/actions/setup-python-environment
