@@ -10,7 +10,7 @@ def InstallScript(visualstudio, architecture, config):
         "glm",
     ]
 
-    architectures = ["x64", "x86"]
+    # architectures = ["x64", "x86"]
     # vcpkg install --triplet=x86-windows:x64-windows <pkg>
     # Platform = os.environ["Platform"]
     # if not Platform in ["x86", "x64"]:
@@ -19,7 +19,7 @@ def InstallScript(visualstudio, architecture, config):
     ERROR_COMMAND = 'IF %ERRORLEVEL% NEQ 0 EXIT /B 1\n'
     VCPKG_INSTALL = "vcpkg install --triplet {ARCHITECTURE}-windows {PACKAGE}\n"
 
-    s = ''.join([VCPKG_INSTALL.format(PACKAGE=pkg, ARCHITECTURE=arch) + ERROR_COMMAND for pkg in packages for arch in architectures])
+    s = ''.join([VCPKG_INSTALL.format(PACKAGE=pkg, ARCHITECTURE=architecture) + ERROR_COMMAND for pkg in packages])
 
     with open("install.bat", "w") as f:
         f.write(s)
