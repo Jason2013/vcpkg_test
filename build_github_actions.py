@@ -14,7 +14,7 @@ def InstallScript(visualstudio, architecture, config):
     # vcpkg install --triplet=x86-windows:x64-windows <pkg>
     # Platform = os.environ["Platform"]
     # if not Platform in ["x86", "x64"]:
-    #     raise AssertionError()
+    #     raise AssertionError(1)
 
     ERROR_COMMAND = 'IF %ERRORLEVEL% NEQ 0 EXIT /B 1\n'
     VCPKG_INSTALL = "vcpkg install --triplet {ARCHITECTURE}-windows {PACKAGE}\n"
