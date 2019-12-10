@@ -10,17 +10,18 @@ def InstallScript(visualstudio, architecture, config):
         "glm",
     ]
 
+    architectures = ["x64", "x86"]
     # vcpkg install --triplet=x86-windows:x64-windows <pkg>
     # Platform = os.environ["Platform"]
     # if not Platform in ["x86", "x64"]:
     #     raise AssertionError()
 
     ERROR_COMMAND = 'IF %ERRORLEVEL% NEQ 0 EXIT /B 1\n'
-    VCPKG_INSTALL = "vcpkg install --triplet {ARCHITECTURE}-windows {LP}PACKAGE{RP}\n".format(ARCHITECTURE=architecture, LP="{", RP="}")
+    VCPKG_INSTALL = "vcpkg install --triplet {ARCHITECTURE}-windows {PACKAGE}\n"
 
-    s = ''.join([VCPKG_INSTALL.format(PACKAGE=pkg) + ERROR_COMMAND for pkg in packages])
+    s = ''.join([VCPKG_INSTALL.format(PACKAGE=pkg, ARCHITECTURE=arch) + ERROR_COMMAND for pkg in packages for arch in architectures])
 
-    with open("install_{ARCHITECTURE}.bat".format(ARCHITECTURE=architecture), "w") as f:
+    with open("install.bat".format(ARCHITECTURE=architecture), "w") as f:
         f.write(s)
 
 def BuildScript(visualstudio, architecture, config):
@@ -49,7 +50,7 @@ def BuildScript(visualstudio, architecture, config):
     CMAKE_COMMAND1 = 'cmake -G"{VISUALSTUDIO}" -A {PLATFORM} -DCMAKE_TOOLCHAIN_FILE=%VCPKG_INSTALLATION_ROOT%/scripts/buildsystems/vcpkg.cmake -DVCPKG_TARGET_TRIPLET={ARCHITECTURE}-windows ..\n'.format(VISUALSTUDIO=visualstudio, PLATFORM=("x64" if architecture=="x64" else "Win32"), ARCHITECTURE=architecture)
     CMAKE_COMMAND2 = 'cmake --build . --config {CONFIG}\n'.format(CONFIG=config)
 
-    BUILD_DIR = "build_{ARCHITECTURE}".format(ARCHITECTURE=architecture)
+    BUILD_DIR = "build"
     CMAKE_COMMANDS = ["mkdir {}\n".format(BUILD_DIR),
         "cd {}\n".format(BUILD_DIR),
         CMAKE_COMMAND1,
@@ -59,7 +60,7 @@ def BuildScript(visualstudio, architecture, config):
         "cd ..\n",
     ]
 
-    with open("build_{}_{}.bat".format(architecture, config), "w") as f:
+    with open("build.bat", config), "w") as f:
         f.write("".join(CMAKE_COMMANDS))
 
 if __name__ == "__main__":
