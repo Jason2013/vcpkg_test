@@ -21,7 +21,7 @@ def InstallScript(visualstudio, architecture, config):
 
     s = ''.join([VCPKG_INSTALL.format(PACKAGE=pkg, ARCHITECTURE=arch) + ERROR_COMMAND for pkg in packages for arch in architectures])
 
-    with open("install.bat".format(ARCHITECTURE=architecture), "w") as f:
+    with open("install.bat", "w") as f:
         f.write(s)
 
 def BuildScript(visualstudio, architecture, config):
@@ -60,7 +60,7 @@ def BuildScript(visualstudio, architecture, config):
         "cd ..\n",
     ]
 
-    with open("build.bat", config), "w") as f:
+    with open("build.bat", "w") as f:
         f.write("".join(CMAKE_COMMANDS))
 
 if __name__ == "__main__":
