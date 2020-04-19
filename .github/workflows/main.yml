@@ -33,6 +33,11 @@ jobs:
                 config:
                     - Debug
                     - Release
+                include:
+                    - architecture: x64
+                      platform: x64
+                    - architecture: x86
+                      platform: Win32
         steps:
             - uses: actions/checkout@v1
             # https://github.com/marketplace/actions/setup-python-environment
@@ -69,7 +74,7 @@ jobs:
               shell: cmd
             - name: Build ${{ matrix.architecture }} ${{ matrix.config }}
               run: |
-                  python build_github_actions.py build "${{ matrix.visualstudio }}" ${{ matrix.architecture }} ${{ matrix.config }}
+                  python build_github_actions.py build "${{ matrix.visualstudio }}" ${{ matrix.architecture }} ${{ matrix.config }} ${{ matrix.platform }}
                   type build.bat
                   build.bat
                   # cd %GITHUB_WORKSPACE%

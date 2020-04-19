@@ -24,7 +24,7 @@ def InstallScript(visualstudio, architecture, config):
     with open("install.bat", "w") as f:
         f.write(s)
 
-def BuildScript(visualstudio, architecture, config):
+def BuildScript(visualstudio, architecture, config, platform):
     # print(os.environ["APPVEYOR_BUILD_WORKER_IMAGE"])
     # print(os.environ["Configuration"])
     # print(os.environ["Platform"])
@@ -47,7 +47,7 @@ def BuildScript(visualstudio, architecture, config):
     #     Generator += " Win64"
 
     ERROR_COMMAND = 'IF %ERRORLEVEL% NEQ 0 EXIT /B 1\n'
-    CMAKE_COMMAND1 = 'cmake -G"{VISUALSTUDIO}" -A {PLATFORM} -DCMAKE_TOOLCHAIN_FILE=%VCPKG_INSTALLATION_ROOT%/scripts/buildsystems/vcpkg.cmake -DVCPKG_TARGET_TRIPLET={ARCHITECTURE}-windows ..\n'.format(VISUALSTUDIO=visualstudio, PLATFORM=("x64" if architecture=="x64" else "Win32"), ARCHITECTURE=architecture)
+    CMAKE_COMMAND1 = 'cmake -G"{VISUALSTUDIO}" -A {PLATFORM} -DCMAKE_TOOLCHAIN_FILE=%VCPKG_INSTALLATION_ROOT%/scripts/buildsystems/vcpkg.cmake -DVCPKG_TARGET_TRIPLET={ARCHITECTURE}-windows ..\n'.format(VISUALSTUDIO=visualstudio, PLATFORM=platform, ARCHITECTURE=architecture)
     CMAKE_COMMAND2 = 'cmake --build . --config {CONFIG}\n'.format(CONFIG=config)
 
     BUILD_DIR = "build"
@@ -79,4 +79,5 @@ if __name__ == "__main__":
     if mode == "install":
         InstallScript(visualstudio, architecture, config)
     elif mode == "build":
-        BuildScript(visualstudio, architecture, config)
+        platform = sys.argv[5]
+        BuildScript(visualstudio, architecture, config, platform)
