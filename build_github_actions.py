@@ -64,7 +64,7 @@ def BuildScript(visualstudio, architecture, config, platform):
         f.write("".join(CMAKE_COMMANDS))
 
 if __name__ == "__main__":
-    if not len(sys.argv) == 5:
+    if not len(sys.argv) in [5, 6]:
         raise AssertionError()
 
     mode = sys.argv[1]
