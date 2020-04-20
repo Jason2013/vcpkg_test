@@ -77,7 +77,7 @@ jobs:
             - name: Install Vcpkg packages (${{ matrix.architecture }})
               run: vcpkg install --triplet ${{ matrix.triplet }} glew glfw3 glm
               shell: cmd
-            - name: Show Vcpkg tool chain file:
+            - name: Show Vcpkg tool chain file
               run: dir C:\vcpkg\scripts\buildsystems
               shell: cmd
 
