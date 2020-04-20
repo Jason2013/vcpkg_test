@@ -92,7 +92,7 @@ jobs:
               run: |
                 mkdir build
                 cd build
-                cmake -A ${{ matrix.platform }} -G"${{ matrix.visualstudio }}" -DCMAKE_TOOLCHAIN_FILE=%VCPKG_INSTALLATION_ROOT%/scripts/buildsystems/vcpkg.cmake -DVCPKG_TARGET_TRIPLET=${{ matrix.triplet }} ..
+                cmake -A ${{ matrix.platform }} -G"${{ matrix.visualstudio }}" -DCMAKE_TOOLCHAIN_FILE=%VCPKG_INSTALLATION_ROOT%\scripts\buildsystems\vcpkg.cmake -DVCPKG_TARGET_TRIPLET=${{ matrix.triplet }} ..
                 cmake --build . --config ${{ matrix.config }}
                 cd ..
 #    CMAKE_COMMAND1 = 'cmake -G"{VISUALSTUDIO}" -A {PLATFORM} -DCMAKE_TOOLCHAIN_FILE=%VCPKG_INSTALLATION_ROOT%/scripts/buildsystems/vcpkg.cmake -DVCPKG_TARGET_TRIPLET={ARCHITECTURE}-windows ..\n'.format(VISUALSTUDIO=visualstudio, PLATFORM=platform, ARCHITECTURE=architecture)
