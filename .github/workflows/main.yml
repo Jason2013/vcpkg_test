@@ -36,10 +36,10 @@ jobs:
                 include:
                     - architecture: x64
                       platform: x64
-                      triplet: x64-windows-static
+                      triplet: x64-windows
                     - architecture: x86
                       platform: Win32
-                      triplet: x86-windows-static
+                      triplet: x86-windows
         steps:
             - uses: actions/checkout@v2
             # https://github.com/marketplace/actions/setup-python-environment
