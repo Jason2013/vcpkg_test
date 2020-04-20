@@ -36,10 +36,12 @@ jobs:
                 include:
                     - architecture: x64
                       platform: x64
+                      triplet: x64-windows-static
                     - architecture: x86
                       platform: Win32
+                      triplet: x86-windows-static
         steps:
-            - uses: actions/checkout@v1
+            - uses: actions/checkout@v2
             # https://github.com/marketplace/actions/setup-python-environment
             - uses: actions/setup-python@v1
               with:
@@ -66,26 +68,38 @@ jobs:
                 set
               shell: cmd
             # - run: vcpkg list
-            - name: Install ${{ matrix.architecture }} ${{ matrix.config }}
+#            - name: Install ${{ matrix.architecture }} ${{ matrix.config }}
+#              run: |
+#                  python build_github_actions.py install "${{ matrix.visualstudio }}" ${{ matrix.architecture }} ${{ matrix.config }}
+#                  type install.bat
+#                  install.bat
+#              shell: cmd
+            - name: Install Vcpkg packages (${{ matrix.architecture }})
+              run: vcpkg install --triplet ${{ matrix.architecture }} glew glfw3 glm
+              shell: cmd
+#            - name: Build ${{ matrix.architecture }} ${{ matrix.config }}
+#              run: |
+#                  python build_github_actions.py build "${{ matrix.visualstudio }}" ${{ matrix.architecture }} ${{ matrix.config }} ${{ matrix.platform }}
+#                  type build.bat
+#                  build.bat
+#                  # cd %GITHUB_WORKSPACE%
+#                  # if not exist "build${{ matrix.visualstudio }}" mkdir "build${{ matrix.visualstudio }}"
+#                  # cd "build${{ matrix.visualstudio }}"
+#                  # cmake -G"${{ matrix.visualstudio }}" ..
+#                  # cmake --build . --config ${{ matrix.config }}
+#              shell: cmd
+            - name: Build project (${{ matrix.architecture }}, ${{ matrix.config }})
               run: |
-                  python build_github_actions.py install "${{ matrix.visualstudio }}" ${{ matrix.architecture }} ${{ matrix.config }}
-                  type install.bat
-                  install.bat
-              shell: cmd
-            - name: Build ${{ matrix.architecture }} ${{ matrix.config }}
-              run: |
-                  python build_github_actions.py build "${{ matrix.visualstudio }}" ${{ matrix.architecture }} ${{ matrix.config }} ${{ matrix.platform }}
-                  type build.bat
-                  build.bat
-                  # cd %GITHUB_WORKSPACE%
-                  # if not exist "build${{ matrix.visualstudio }}" mkdir "build${{ matrix.visualstudio }}"
-                  # cd "build${{ matrix.visualstudio }}"
-                  # cmake -G"${{ matrix.visualstudio }}" ..
-                  # cmake --build . --config ${{ matrix.config }}
-              shell: cmd
-            - name: show files
-              run: dir
-              shell: cmd
+                mkdir build
+                cd build
+                cmake -A ${{ matrix.platform }} -G"${{ matrix.visualstudio }}" -DCMAKE_TOOLCHAIN_FILE=%VCPKG_INSTALLATION_ROOT%/scripts/buildsystems/vcpkg.cmake -DVCPKG_TARGET_TRIPLET=${{ matrix.triplet }} ..
+                cmake --build . --config ${{ matrix.config }}
+                cd ..
+#    CMAKE_COMMAND1 = 'cmake -G"{VISUALSTUDIO}" -A {PLATFORM} -DCMAKE_TOOLCHAIN_FILE=%VCPKG_INSTALLATION_ROOT%/scripts/buildsystems/vcpkg.cmake -DVCPKG_TARGET_TRIPLET={ARCHITECTURE}-windows ..\n'.format(VISUALSTUDIO=visualstudio, PLATFORM=platform, ARCHITECTURE=architecture)
+#                cmake --
+#            - name: show files
+#              run: dir
+#              shell: cmd
             # - name: Test ${{ matrix.config }}
             #   run: |
             #       cd
