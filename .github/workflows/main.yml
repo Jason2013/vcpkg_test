@@ -47,10 +47,11 @@ jobs:
               with:
                   python-version: '3.x'
             - name: Cache Vcpkg modules
+              id: cache-vcpkg
               uses: actions/cache@v1
               with:
                 path: c:\vcpkg\installed # npm cache files are stored in `~/.npm` on Linux/macOS
-                key: ${{ runner.os }}-vcpkg-${{ matrix.triplet }}
+                key: ${{ runner.os }}-${{ matrix.visualstudio }}-vcpkg-${{ matrix.triplet }}
                 # restore-keys: |
                 #   ${{ runner.os }}-node-${{ env.cache-name }}-
                 #   ${{ runner.os }}-node-
@@ -75,6 +76,7 @@ jobs:
 #                  install.bat
 #              shell: cmd
             - name: Install Vcpkg packages (${{ matrix.architecture }})
+              if: steps.cache-vcpkg.outputs.cache-hit != 'true'
               run: vcpkg install --triplet ${{ matrix.triplet }} glew glfw3 glm
               shell: cmd
             - name: Show Vcpkg tool chain file
