@@ -75,7 +75,7 @@ jobs:
 #                  install.bat
 #              shell: cmd
             - name: Install Vcpkg packages (${{ matrix.architecture }})
-              run: vcpkg install --triplet ${{ matrix.architecture }} glew glfw3 glm
+              run: vcpkg install --triplet ${{ matrix.triplet }} glew glfw3 glm
               shell: cmd
 #            - name: Build ${{ matrix.architecture }} ${{ matrix.config }}
 #              run: |
