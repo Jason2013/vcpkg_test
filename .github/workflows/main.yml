@@ -31,7 +31,7 @@ jobs:
               id: cache-vcpkg
               uses: actions/cache@v1
               with:
-                path: c:\vcpkg\installed # npm cache files are stored in `~/.npm` on Linux/macOS
+                path: %VCPKG_INSTALLATION_ROOT%\installed # npm cache files are stored in `~/.npm` on Linux/macOS
                 key: ${{ runner.os }}-${{ matrix.visualstudio }}-vcpkg-${{ matrix.triplet }}
                 # restore-keys: |
                 #   ${{ runner.os }}-node-${{ env.cache-name }}-
