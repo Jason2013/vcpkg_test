@@ -4,6 +4,8 @@ jobs:
     build:
         name: test build
         runs-on: windows-latest
+        env:
+          VCPKG_PACKAGES: glew glfw3 glm
         strategy:
             fail-fast: false
             matrix:
@@ -32,8 +34,10 @@ jobs:
               uses: actions/cache@v1
               with:
                 path: '%VCPKG_INSTALLATION_ROOT%\installed' # npm cache files are stored in `~/.npm` on Linux/macOS
-                key: ${{ runner.os }}-${{ matrix.visualstudio }}-vcpkg-${{ matrix.triplet }}
-                # restore-keys: |
+                key: ${{ runner.os }}-${{ matrix.visualstudio }}-vcpkg-${{ matrix.triplet }}-${{ env.VCPKG_PACKAGES }}
+                restore-keys: |
+                  ${{ runner.os }}-${{ matrix.visualstudio }}-vcpkg-${{ matrix.triplet }}-
+                  ${{ runner.os }}-${{ matrix.visualstudio }}-vcpkg-
                 #   ${{ runner.os }}-node-${{ env.cache-name }}-
                 #   ${{ runner.os }}-node-
                 #   ${{ runner.os }}-
